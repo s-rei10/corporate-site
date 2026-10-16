@@ -1,0 +1,3635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXA - AIで時間をつくる。人が価値をつくる。企業の業務効率化を支援するAIプラットフォーム。">
+
+  <title>NEXA | AIで時間をつくる。人が価値をつくる。</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       Base
+    ========================================= */
+
+    :root {
+      --navy-950: #050b1a;
+      --navy-900: #071126;
+      --navy-800: #0b1834;
+      --navy-700: #102347;
+
+      --blue-400: #4da3ff;
+      --blue-500: #2489ff;
+      --blue-600: #0878f9;
+      --cyan: #36d8ff;
+
+      --white: #ffffff;
+      --text: #eaf2ff;
+      --text-muted: #94a8c7;
+      --text-dark: #15243f;
+
+      --surface: #ffffff;
+      --surface-soft: #f4f8ff;
+      --border: rgba(255, 255, 255, 0.10);
+      --border-light: #e4ebf5;
+
+      --gradient-primary:
+        linear-gradient(
+          135deg,
+          #0878f9 0%,
+          #35a8ff 50%,
+          #53ddff 100%
+        );
+
+      --gradient-dark:
+        linear-gradient(
+          135deg,
+          #050b1a 0%,
+          #0b1834 55%,
+          #102b57 100%
+        );
+
+      --shadow-lg:
+        0 30px 80px rgba(2, 14, 40, 0.20);
+
+      --shadow-md:
+        0 15px 40px rgba(2, 14, 40, 0.12);
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --radius-xl: 36px;
+
+      --container: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family:
+        "Noto Sans JP",
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      color: var(--text-dark);
+      background: var(--surface);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 120px 0;
+    }
+
+    .section-dark {
+      background: var(--navy-950);
+      color: var(--white);
+    }
+
+    .section-light {
+      background: var(--surface-soft);
+    }
+
+    /* =========================================
+       Utility
+    ========================================= */
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--blue-500);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 58px;
+    }
+
+    .section-heading.center {
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .section-heading.center .eyebrow {
+      justify-content: center;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.3;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .section-description {
+      color: #687a96;
+      font-size: 16px;
+      line-height: 2;
+    }
+
+    .section-dark .section-description {
+      color: var(--text-muted);
+    }
+
+    .gradient-text {
+      background: linear-gradient(
+        90deg,
+        #52c4ff,
+        #2c91ff,
+        #74e6ff
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* =========================================
+       Header
+    ========================================= */
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: 0.3s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(5, 11, 26, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      color: var(--white);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 31px;
+      height: 31px;
+      border-radius: 9px;
+      background: var(--gradient-primary);
+      position: relative;
+      box-shadow: 0 8px 25px rgba(36, 137, 255, 0.35);
+    }
+
+    .logo-mark::before,
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      background: white;
+      border-radius: 3px;
+    }
+
+    .logo-mark::before {
+      width: 14px;
+      height: 4px;
+      top: 9px;
+      left: 8px;
+      transform: rotate(-45deg);
+    }
+
+    .logo-mark::after {
+      width: 12px;
+      height: 4px;
+      top: 17px;
+      left: 11px;
+      transform: rotate(-45deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: rgba(255,255,255,0.76);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--gradient-primary);
+      box-shadow: 0 12px 30px rgba(36, 137, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 18px 40px rgba(36, 137, 255, 0.40);
+    }
+
+    .btn-outline {
+      color: white;
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .btn-dark {
+      color: var(--white);
+      background: var(--navy-900);
+    }
+
+    .btn-white {
+      color: var(--navy-900);
+      background: white;
+    }
+
+    .hamburger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .hamburger span {
+      position: absolute;
+      left: 11px;
+      width: 20px;
+      height: 2px;
+      background: white;
+      transition: 0.25s;
+    }
+
+    .hamburger span:nth-child(1) {
+      top: 13px;
+    }
+
+    .hamburger span:nth-child(2) {
+      top: 20px;
+    }
+
+    .hamburger span:nth-child(3) {
+      top: 27px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      top: 20px;
+      transform: rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      top: 20px;
+      transform: rotate(-45deg);
+    }
+
+    /* =========================================
+       Hero
+    ========================================= */
+
+    .hero {
+      position: relative;
+      min-height: 850px;
+      padding: 180px 0 120px;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(
+          circle at 72% 30%,
+          rgba(21, 135, 255, 0.32),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 10% 80%,
+          rgba(31, 86, 255, 0.20),
+          transparent 30%
+        ),
+        var(--gradient-dark);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      right: -220px;
+      top: -250px;
+      border-radius: 50%;
+      background: rgba(39, 157, 255, 0.14);
+      filter: blur(10px);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px 7px 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      color: #c6d9f6;
+      font-size: 12px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      background: #41d9ff;
+      border-radius: 50%;
+      box-shadow: 0 0 14px #41d9ff;
+    }
+
+    .hero-title {
+      font-size: clamp(46px, 6vw, 78px);
+      line-height: 1.12;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      margin-bottom: 28px;
+    }
+
+    .hero-description {
+      max-width: 580px;
+      color: #a8bad7;
+      font-size: 17px;
+      line-height: 2;
+      margin-bottom: 36px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .hero-note {
+      color: #7186a6;
+      font-size: 12px;
+    }
+
+    /* Dashboard visual */
+
+    .hero-visual {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glow {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: rgba(36, 137, 255, 0.22);
+      filter: blur(80px);
+    }
+
+    .dashboard {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 580px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(10, 24, 52, 0.72);
+      backdrop-filter: blur(25px);
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow:
+        0 50px 100px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+    }
+
+    .dashboard-top {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px 12px;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .window-dots span {
+      width: 7px;
+      height: 7px;
+      background: #60718e;
+      border-radius: 50%;
+    }
+
+    .dashboard-label {
+      font-size: 10px;
+      color: #7589a8;
+    }
+
+    .dashboard-body {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      min-height: 400px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f4f7fc;
+    }
+
+    .dashboard-sidebar {
+      padding: 22px 14px;
+      background: #091731;
+    }
+
+    .side-logo {
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 32px;
+      padding: 0 8px;
+    }
+
+    .side-item {
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: #7284a0;
+      font-size: 9px;
+      margin-bottom: 5px;
+    }
+
+    .side-item.active {
+      color: white;
+      background: rgba(36,137,255,0.18);
+    }
+
+    .dashboard-main {
+      padding: 22px;
+      color: var(--text-dark);
+    }
+
+    .dashboard-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .dashboard-heading h3 {
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .dashboard-heading p {
+      color: #8a99af;
+      font-size: 8px;
+    }
+
+    .mini-button {
+      background: #0b82ff;
+      color: white;
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stat-card {
+      padding: 13px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid #e5ebf4;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #8b99ad;
+      font-size: 7px;
+      margin-bottom: 5px;
+    }
+
+    .stat-card strong {
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .stat-up {
+      color: #0f9c74;
+      font-size: 7px;
+      margin-left: 3px;
+    }
+
+    .chart-card {
+      padding: 16px;
+      background: white;
+      border: 1px solid #e5ebf4;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .chart-title {
+      font-size: 9px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .chart {
+      height: 105px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      padding: 0 6px;
+      border-bottom: 1px solid #e9eef5;
+    }
+
+    .chart::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 24px,
+          #edf2f7 25px
+        );
+    }
+
+    .bar {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: linear-gradient(
+        to top,
+        #0b82ff,
+        #63d8ff
+      );
+    }
+
+    .bar:nth-child(1) { height: 35%; }
+    .bar:nth-child(2) { height: 48%; }
+    .bar:nth-child(3) { height: 43%; }
+    .bar:nth-child(4) { height: 67%; }
+    .bar:nth-child(5) { height: 60%; }
+    .bar:nth-child(6) { height: 78%; }
+    .bar:nth-child(7) { height: 91%; }
+
+    .activity-card {
+      background: white;
+      border: 1px solid #e5ebf4;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .activity {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 0;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .activity:last-child {
+      border-bottom: 0;
+    }
+
+    .activity-icon {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: #e8f3ff;
+      color: #0878f9;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .activity-text {
+      flex: 1;
+      font-size: 8px;
+      line-height: 1.5;
+    }
+
+    .activity-text small {
+      display: block;
+      color: #9aa7ba;
+      font-size: 7px;
+    }
+
+    .floating-card {
+      position: absolute;
+      z-index: 4;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.94);
+      color: var(--text-dark);
+      border-radius: 14px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(15px);
+    }
+
+    .floating-card.result {
+      left: -25px;
+      bottom: 55px;
+    }
+
+    .floating-card.ai {
+      right: -18px;
+      top: 75px;
+    }
+
+    .floating-label {
+      color: #7890b1;
+      font-size: 9px;
+      margin-bottom: 4px;
+    }
+
+    .floating-value {
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .floating-positive {
+      color: #0a9a70;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .ai-icon {
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--gradient-primary);
+      color: white;
+      margin-bottom: 7px;
+      font-size: 12px;
+    }
+
+    /* =========================================
+       Trust
+    ========================================= */
+
+    .trust {
+      padding: 42px 0;
+      background: #f7faff;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .trust-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .trust-label {
+      color: #8a9ab2;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .company-logos {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    .company-logo {
+      color: #8798b1;
+      font-size: 14px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: -0.04em;
+    }
+
+    /* =========================================
+       Problem
+    ========================================= */
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .problem-intro {
+      position: sticky;
+      top: 120px;
+    }
+
+    .problem-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .problem-card {
+      padding: 30px;
+      border: 1px solid var(--border-light);
+      background: white;
+      border-radius: var(--radius-md);
+      transition: 0.3s ease;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: #cfe2ff;
+    }
+
+    .problem-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      background: #edf6ff;
+      color: var(--blue-600);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .problem-card h3 {
+      font-size: 17px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .problem-card p {
+      color: #73829a;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    /* =========================================
+       Features
+    ========================================= */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 290px;
+      padding: 34px;
+      color: white;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.08),
+          rgba(255,255,255,0.025)
+        );
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius-lg);
+      transition: 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(74,164,255,0.35);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(39,143,255,0.15),
+          rgba(255,255,255,0.035)
+        );
+    }
+
+    .feature-card.large {
+      grid-column: span 2;
+    }
+
+    .feature-number {
+      color: #4fa9ff;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 45px;
+    }
+
+    .feature-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-card p {
+      color: #92a8c8;
+      font-size: 13px;
+      line-height: 1.9;
+      max-width: 470px;
+    }
+
+    .feature-glow {
+      position: absolute;
+      right: -70px;
+      bottom: -100px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(28, 133, 255, 0.15);
+      filter: blur(40px);
+    }
+
+    /* =========================================
+       Use cases
+    ========================================= */
+
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .usecase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .usecase-item {
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 17px 18px;
+      border: 1px solid var(--border-light);
+      border-radius: 13px;
+      background: white;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .usecase-item:hover,
+    .usecase-item.active {
+      border-color: #b9d9ff;
+      box-shadow: 0 10px 30px rgba(26, 106, 190, 0.08);
+      transform: translateX(4px);
+    }
+
+    .usecase-number {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #eef6ff;
+      color: var(--blue-600);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .usecase-item h3 {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .usecase-item p {
+      color: #8795a9;
+      font-size: 11px;
+    }
+
+    .usecase-arrow {
+      color: #8da0b9;
+      font-size: 18px;
+    }
+
+    .usecase-visual {
+      min-height: 450px;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(
+          circle at 80% 20%,
+          rgba(65, 176, 255, 0.35),
+          transparent 28%
+        ),
+        var(--gradient-dark);
+      padding: 35px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .usecase-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          rgba(255,255,255,0.03) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.03) 1px,
+          transparent 1px
+        );
+      background-size: 32px 32px;
+    }
+
+    .visual-window {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      backdrop-filter: blur(18px);
+    }
+
+    .visual-window-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 20px;
+    }
+
+    .visual-window-header h4 {
+      color: white;
+      font-size: 13px;
+    }
+
+    .ai-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #62d8ff;
+      font-size: 8px;
+    }
+
+    .ai-status span {
+      width: 6px;
+      height: 6px;
+      background: #62d8ff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #62d8ff;
+    }
+
+    .ai-message {
+      padding: 15px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      color: #bdd0ec;
+      font-size: 10px;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .ai-message.user {
+      margin-left: 45px;
+      background: rgba(37, 142, 255, 0.15);
+    }
+
+    .ai-message strong {
+      color: white;
+    }
+
+    /* =========================================
+       Results
+    ========================================= */
+
+    .results {
+      position: relative;
+      overflow: hidden;
+      background: var(--gradient-dark);
+      color: white;
+    }
+
+    .results::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -150px;
+      top: -250px;
+      border-radius: 50%;
+      background: rgba(37, 142, 255, 0.22);
+      filter: blur(60px);
+    }
+
+    .result-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .result-card {
+      padding: 35px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .result-card span {
+      display: block;
+      color: #87a0c3;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .result-card strong {
+      display: block;
+      font-family: "Inter", sans-serif;
+      font-size: clamp(38px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      margin-bottom: 10px;
+    }
+
+    .result-card p {
+      color: #91a8ca;
+      font-size: 12px;
+    }
+
+    /* =========================================
+       Process
+    ========================================= */
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      position: relative;
+    }
+
+    .process-grid::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 42px;
+      height: 1px;
+      background: #dbe5f2;
+    }
+
+    .process-card {
+      position: relative;
+      z-index: 2;
+      padding: 0 15px;
+      text-align: center;
+    }
+
+    .process-number {
+      width: 84px;
+      height: 84px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 24px;
+      border: 8px solid white;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      color: white;
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(36,137,255,0.2);
+    }
+
+    .process-card h3 {
+      font-size: 16px;
+      margin-bottom: 9px;
+    }
+
+    .process-card p {
+      color: #7d8da5;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* =========================================
+       Security
+    ========================================= */
+
+    .security-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .security-visual {
+      position: relative;
+      min-height: 450px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 50% 45%,
+          rgba(37,142,255,0.24),
+          transparent 30%
+        ),
+        var(--gradient-dark);
+      display: grid;
+      place-items: center;
+    }
+
+    .shield {
+      width: 180px;
+      height: 210px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      clip-path: polygon(
+        50% 0%,
+        91% 15%,
+        84% 68%,
+        50% 100%,
+        16% 68%,
+        9% 15%
+      );
+      background: var(--gradient-primary);
+      box-shadow: 0 30px 80px rgba(30,140,255,0.3);
+    }
+
+    .shield-inner {
+      width: 140px;
+      height: 165px;
+      clip-path: inherit;
+      background: #081630;
+      display: grid;
+      place-items: center;
+      color: #6bdcff;
+      font-size: 42px;
+      font-weight: 900;
+    }
+
+    .security-points {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .security-point {
+      padding: 20px;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      background: white;
+    }
+
+    .security-point h3 {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .security-point p {
+      color: #7d8ca4;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* =========================================
+       Testimonials
+    ========================================= */
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .testimonial {
+      padding: 38px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      background: white;
+      box-shadow: 0 10px 40px rgba(10, 45, 90, 0.05);
+    }
+
+    .quote-mark {
+      color: var(--blue-500);
+      font-family: Georgia, serif;
+      font-size: 52px;
+      line-height: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .testimonial blockquote {
+      font-size: 15px;
+      line-height: 2;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px solid #edf1f6;
+    }
+
+    .author-avatar {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .author-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .author-role {
+      color: #8997aa;
+      font-size: 10px;
+    }
+
+    /* =========================================
+       FAQ
+    ========================================= */
+
+    .faq-wrap {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #dfe7f1;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 25px 0;
+      border: 0;
+      background: transparent;
+      color: var(--text-dark);
+      text-align: left;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .faq-icon {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #edf5ff;
+      color: var(--blue-600);
+      font-size: 18px;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+
+    .faq-answer-inner {
+      overflow: hidden;
+      color: #718099;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .faq-item.open .faq-answer {
+      grid-template-rows: 1fr;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-item.open .faq-answer-inner {
+      padding-bottom: 24px;
+    }
+
+    /* =========================================
+       CTA
+    ========================================= */
+
+    .cta-section {
+      padding: 110px 0;
+      color: white;
+      background:
+        radial-gradient(
+          circle at 20% 50%,
+          rgba(50,170,255,0.25),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 20%,
+          rgba(62,95,255,0.22),
+          transparent 30%
+        ),
+        var(--gradient-dark);
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 90px 30px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 36px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(15px);
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      top: -250px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(42, 154, 255, 0.2);
+      filter: blur(50px);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-title {
+      max-width: 750px;
+      margin: 0 auto 22px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.35;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+    }
+
+    .cta-description {
+      max-width: 600px;
+      margin: 0 auto 32px;
+      color: #9eb2d1;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .cta-note {
+      color: #6e84a5;
+      font-size: 11px;
+    }
+
+    /* =========================================
+       Contact
+    ========================================= */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info p {
+      color: #73829a;
+      font-size: 14px;
+      line-height: 2;
+      margin-bottom: 25px;
+    }
+
+    .contact-points {
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-point {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #50627d;
+      font-size: 12px;
+    }
+
+    .contact-check {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eaf5ff;
+      color: var(--blue-600);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .contact-form {
+      padding: 35px;
+      border-radius: var(--radius-lg);
+      background: white;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #344763;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid #dce5f0;
+      border-radius: 9px;
+      padding: 12px 14px;
+      color: var(--text-dark);
+      background: #fbfdff;
+      outline: none;
+      transition: 0.2s;
+      font-size: 13px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #5caaff;
+      box-shadow: 0 0 0 4px rgba(36,137,255,0.08);
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      margin-top: 22px;
+    }
+
+    .form-submit .btn {
+      width: 100%;
+    }
+
+    .form-note {
+      margin-top: 12px;
+      color: #99a5b6;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    /* =========================================
+       Footer
+    ========================================= */
+
+    .footer {
+      padding: 70px 0 30px;
+      background: #030817;
+      color: white;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 50px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand p {
+      max-width: 300px;
+      margin-top: 18px;
+      color: #687b9a;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .footer-title {
+      color: #dce7f7;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: #687b9a;
+      font-size: 11px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 25px;
+      color: #526581;
+      font-size: 10px;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* =========================================
+       Animation
+    ========================================= */
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================
+       Responsive
+    ========================================= */
+
+    @media (max-width: 1024px) {
+      .nav-links {
+        gap: 18px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        text-align: center;
+        margin-inline: auto;
+      }
+
+      .hero-description {
+        margin-inline: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-note {
+        display: block;
+      }
+
+      .hero-visual {
+        max-width: 720px;
+        width: 100%;
+        margin: auto;
+      }
+
+      .problem-grid,
+      .usecase-grid,
+      .security-wrap,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-intro {
+        position: static;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature-card.large {
+        grid-column: span 2;
+      }
+
+      .security-visual {
+        max-width: 650px;
+        width: 100%;
+        margin: auto;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: min(var(--container), calc(100% - 32px));
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .header .nav-actions {
+        display: none;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 78px;
+        left: 16px;
+        right: 16px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+        background: rgba(5,11,26,0.96);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 18px;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: 0.25s ease;
+      }
+
+      .nav-links.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-links a {
+        padding: 11px;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 145px 0 80px;
+      }
+
+      .hero-title {
+        font-size: clamp(39px, 11vw, 62px);
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .hero-visual {
+        min-height: 390px;
+      }
+
+      .dashboard {
+        transform: none;
+      }
+
+      .floating-card.result {
+        left: -5px;
+        bottom: 10px;
+      }
+
+      .floating-card.ai {
+        right: -5px;
+        top: 20px;
+      }
+
+      .dashboard-body {
+        grid-template-columns: 90px 1fr;
+      }
+
+      .dashboard-sidebar {
+        padding: 15px 8px;
+      }
+
+      .side-logo {
+        font-size: 11px;
+      }
+
+      .side-item {
+        font-size: 7px;
+      }
+
+      .dashboard-main {
+        padding: 13px;
+      }
+
+      .trust-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .company-logos {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .problem-cards,
+      .feature-grid,
+      .result-grid,
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card.large {
+        grid-column: auto;
+      }
+
+      .usecase-grid {
+        gap: 30px;
+      }
+
+      .usecase-visual {
+        min-height: 380px;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .process-grid::before {
+        display: none;
+      }
+
+      .process-card {
+        padding: 0;
+      }
+
+      .security-points {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 65px 0;
+      }
+
+      .hero-buttons,
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons .btn,
+      .cta-buttons .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 320px;
+      }
+
+      .dashboard {
+        padding: 8px;
+        border-radius: 15px;
+      }
+
+      .dashboard-body {
+        min-height: 310px;
+      }
+
+      .stat-grid {
+        gap: 5px;
+      }
+
+      .stat-card {
+        padding: 8px;
+      }
+
+      .stat-card strong {
+        font-size: 12px;
+      }
+
+      .chart {
+        height: 75px;
+      }
+
+      .floating-card {
+        padding: 10px;
+      }
+
+      .floating-value {
+        font-size: 15px;
+      }
+
+      .floating-card.result {
+        left: -8px;
+      }
+
+      .floating-card.ai {
+        right: -8px;
+      }
+
+      .company-logos {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-form {
+        padding: 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-brand {
+        grid-column: auto;
+      }
+
+      .footer-legal {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================
+       Header
+  ========================================== -->
+
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav">
+
+        <a href="#top" class="logo">
+          <span class="logo-mark"></span>
+          NEXA
+        </a>
+
+        <div class="nav-links" id="navLinks">
+          <a href="#service">サービス</a>
+          <a href="#features">特徴</a>
+          <a href="#usecases">活用シーン</a>
+          <a href="#results">導入効果</a>
+          <a href="#cases">導入事例</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <div class="nav-actions">
+          <a href="#contact" class="btn btn-primary">
+            無料で相談する
+          </a>
+        </div>
+
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="メニューを開く"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="top">
+
+    <!-- =========================================
+         Hero
+    ========================================== -->
+
+    <section class="hero">
+      <div class="container">
+
+        <div class="hero-grid">
+
+          <div class="hero-content fade-up">
+
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              Enterprise AI Productivity Platform
+            </div>
+
+            <h1 class="hero-title">
+              その仕事、<br>
+              <span class="gradient-text">AIに任せて。</span><br>
+              人にしかできない仕事へ。
+            </h1>
+
+            <p class="hero-description">
+              NEXAは、日々の定型業務をAIで自動化し、
+              チームの生産性を高める業務効率化プラットフォームです。
+              データ入力、文書作成、情報整理、レポート作成など、
+              これまで人が時間をかけていた業務を、もっとシンプルに。
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#contact" class="btn btn-primary">
+                無料で相談する
+                <span>→</span>
+              </a>
+
+              <a href="#service" class="btn btn-outline">
+                サービスを見る
+              </a>
+            </div>
+
+            <div class="hero-note">
+              AI導入が初めての企業にも、導入から運用まで伴走します。
+            </div>
+
+          </div>
+
+
+          <div class="hero-visual fade-up">
+
+            <div class="glow"></div>
+
+            <div class="dashboard">
+
+              <div class="dashboard-top">
+                <div class="window-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div class="dashboard-label">
+                  NEXA WORKSPACE
+                </div>
+              </div>
+
+              <div class="dashboard-body">
+
+                <aside class="dashboard-sidebar">
+                  <div class="side-logo">NEXA</div>
+
+                  <div class="side-item active">
+                    Overview
+                  </div>
+
+                  <div class="side-item">
+                    AI Assistant
+                  </div>
+
+                  <div class="side-item">
+                    Analytics
+                  </div>
+
+                  <div class="side-item">
+                    Automations
+                  </div>
+
+                  <div class="side-item">
+                    Reports
+                  </div>
+
+                  <div class="side-item">
+                    Settings
+                  </div>
+                </aside>
+
+                <div class="dashboard-main">
+
+                  <div class="dashboard-heading">
+                    <div>
+                      <h3>業務パフォーマンス</h3>
+                      <p>今月の自動化状況</p>
+                    </div>
+
+                    <div class="mini-button">
+                      AIに依頼
+                    </div>
+                  </div>
+
+                  <div class="stat-grid">
+
+                    <div class="stat-card">
+                      <span>削減時間</span>
+                      <strong>128h</strong>
+                      <small class="stat-up">+18%</small>
+                    </div>
+
+                    <div class="stat-card">
+                      <span>自動化率</span>
+                      <strong>76%</strong>
+                      <small class="stat-up">+12%</small>
+                    </div>
+
+                    <div class="stat-card">
+                      <span>処理件数</span>
+                      <strong>2,841</strong>
+                      <small class="stat-up">+24%</small>
+                    </div>
+
+                  </div>
+
+                  <div class="chart-card">
+
+                    <div class="chart-title">
+                      月間業務削減時間
+                    </div>
+
+                    <div class="chart">
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                    </div>
+
+                  </div>
+
+                  <div class="activity-card">
+
+                    <div class="activity">
+                      <div class="activity-icon">AI</div>
+                      <div class="activity-text">
+                        月次レポートを作成しました
+                        <small>たった今</small>
+                      </div>
+                    </div>
+
+                    <div class="activity">
+                      <div class="activity-icon">✓</div>
+                      <div class="activity-text">
+                        データ集計が完了しました
+                        <small>3分前</small>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <div class="floating-card result">
+              <div class="floating-label">
+                今月の業務削減
+              </div>
+              <div class="floating-value">
+                128時間
+              </div>
+              <div class="floating-positive">
+                ↑ 18.4% improvement
+              </div>
+            </div>
+
+            <div class="floating-card ai">
+              <div class="ai-icon">✦</div>
+              <div class="floating-label">
+                AI Assistant
+              </div>
+              <div class="floating-value">
+                Ready
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================
+         Trust
+    ========================================== -->
+
+    <section class="trust">
+      <div class="container">
+
+        <div class="trust-inner">
+
+          <div class="trust-label">
+            多くの企業で活用されています
+          </div>
+
+          <div class="company-logos">
+            <div class="company-logo">NOVA</div>
+            <div class="company-logo">Aster</div>
+            <div class="company-logo">CORE</div>
+            <div class="company-logo">MIRAI</div>
+            <div class="company-logo">UNITE</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================
+         Problem
+    ========================================== -->
+
+    <section class="section" id="problem">
+      <div class="container">
+
+        <div class="problem-grid">
+
+          <div class="problem-intro fade-up">
+
+            <div class="eyebrow">
+              Problem
+            </div>
+
+            <h2 class="section-title">
+              「本当はもっと大切な仕事に、<br>
+              時間を使いたい。」
+            </h2>
+
+            <p class="section-description">
+              日々の業務には、知らないうちに多くの時間を奪っている
+              「ちょっとした作業」があります。
+              NEXAは、そんな業務をAIに任せることで、
+              人が本当に向き合うべき仕事に集中できる環境をつくります。
+            </p>
+
+          </div>
+
+          <div class="problem-cards">
+
+            <article class="problem-card fade-up">
+              <div class="problem-icon">01</div>
+              <h3>定型作業に追われている</h3>
+              <p>
+                毎日のデータ入力や集計、転記作業。
+                気づけば、本来の業務に使える時間が少なくなっていませんか？
+              </p>
+            </article>
+
+            <article class="problem-card fade-up">
+              <div class="problem-icon">02</div>
+              <h3>資料作成に時間がかかる</h3>
+              <p>
+                報告書や議事録、メール、提案資料。
+                一から作成することで、多くの時間を消費しています。
+              </p>
+            </article>
+
+            <article class="problem-card fade-up">
+              <div class="problem-icon">03</div>
+              <h3>社内に情報が分散している</h3>
+              <p>
+                必要な情報を探すだけで時間がかかる。
+                担当者に聞かなければ分からない。
+                そんな状況を解消します。
+              </p>
+            </article>
+
+            <article class="problem-card fade-up">
+              <div class="problem-icon">04</div>
+              <h3>AIの活用方法が分からない</h3>
+              <p>
+                AIの可能性は分かっていても、
+                「何から始めればいいのか分からない」という企業を支援します。
+              </p>
+            </article>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================
+         Service
+    ========================================== -->
+
+    <section class="section section-dark" id="service">
+
+      <div class="container">
+
+        <div class="section-heading fade-up">
+
+          <div class="eyebrow">
+            Service
+          </div>
+
+          <h2 class="section-title">
+            AIを、もっと<br>
+            <span class="gradient-text">「仕事の中」</span>へ。
+          </h2>
+
+          <p class="section-description">
+            NEXAは、AIを単なるチャットツールとしてではなく、
+            実際の業務を動かす「仕事のパートナー」として活用できる
+            プラットフォームです。
+          </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+          <article class="feature-card large fade-up">
+            <div class="feature-number">01 / AI ASSISTANT</div>
+            <h3>AIアシスタント</h3>
+            <p>
+              質問への回答や情報整理、文章作成など、
+              日常業務をAIがサポートします。
+              複雑なAIの知識がなくても、普段の仕事の延長線上で利用できます。
+            </p>
+            <div class="feature-glow"></div>
+          </article>
+
+          <article class="feature-card fade-up">
+            <div class="feature-number">02</div>
+            <h3>文書・メール生成</h3>
+            <p>
+              メール、議事録、報告書、提案資料などの文章を
+              スピーディーに作成できます。
+            </p>
+            <div class="feature-glow"></div>
+          </article>
+
+          <article class="feature-card fade-up">
+            <div class="feature-number">03</div>
+            <h3>データ処理・分析</h3>
+            <p>
+              ExcelやCSVなどのデータをAIが整理・集計。
+              複雑なデータ処理も、よりシンプルに。
+            </p>
+            <div class="feature-glow"></div>
+          </article>
+
+          <article class="feature-card fade-up">
+            <div class="feature-number">04</div>
+            <h3>社内情報検索</h3>
+            <p>
+              社内に蓄積された情報をAIが検索・要約。
+              「どこにあるか分からない」を減らします。
+            </p>
+            <div class="feature-glow"></div>
+          </article>
+
+          <article class="feature-card large fade-up">
+            <div class="feature-number">05 / AUTOMATION</div>
+            <h3>業務自動化</h3>
+            <p>
+              繰り返し発生する定型業務を自動化し、
+              チームの作業時間を削減します。
+              AIによって「人が作業する」から「仕組みが動く」へ。
+            </p>
+            <div class="feature-glow"></div>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         Use Cases
+    ========================================== -->
+
+    <section class="section" id="usecases">
+
+      <div class="container">
+
+        <div class="section-heading center fade-up">
+
+          <div class="eyebrow">
+            Use Cases
+          </div>
+
+          <h2 class="section-title">
+            あなたの仕事の中にも、<br>
+            AIが活躍できる場所があります。
+          </h2>
+
+          <p class="section-description">
+            営業、バックオフィス、マーケティング、
+            カスタマーサポートまで。
+            NEXAはさまざまな部門の業務を支援します。
+          </p>
+
+        </div>
+
+
+        <div class="usecase-grid">
+
+          <div class="usecase-list">
+
+            <div class="usecase-item active">
+              <div class="usecase-number">01</div>
+              <div>
+                <h3>営業</h3>
+                <p>議事録・提案資料・営業レポート</p>
+              </div>
+              <div class="usecase-arrow">→</div>
+            </div>
+
+            <div class="usecase-item">
+              <div class="usecase-number">02</div>
+              <div>
+                <h3>バックオフィス</h3>
+                <p>入力・集計・定型メール・レポート</p>
+              </div>
+              <div class="usecase-arrow">→</div>
+            </div>
+
+            <div class="usecase-item">
+              <div class="usecase-number">03</div>
+              <div>
+                <h3>マーケティング</h3>
+                <p>調査・分析・コンテンツ制作</p>
+              </div>
+              <div class="usecase-arrow">→</div>
+            </div>
+
+            <div class="usecase-item">
+              <div class="usecase-number">04</div>
+              <div>
+                <h3>カスタマーサポート</h3>
+                <p>問い合わせ分類・回答・FAQ</p>
+              </div>
+              <div class="usecase-arrow">→</div>
+            </div>
+
+          </div>
+
+
+          <div class="usecase-visual">
+
+            <div class="visual-window">
+
+              <div class="visual-window-header">
+
+                <h4>NEXA AI Assistant</h4>
+
+                <div class="ai-status">
+                  <span></span>
+                  AI Online
+                </div>
+
+              </div>
+
+              <div class="ai-message user">
+                今月の営業レポートをまとめてください。
+              </div>
+
+              <div class="ai-message">
+                <strong>分析が完了しました。</strong><br>
+                今月の商談データを分析し、
+                成約率・案件数・前月比をまとめました。
+              </div>
+
+              <div class="ai-message">
+                成約率は前月比 <strong>+12.4%</strong>。<br>
+                特にエンタープライズ領域で
+                大きな伸びが確認されています。
+              </div>
+
+              <div class="ai-message user">
+                この内容をレポート形式にしてください。
+              </div>
+
+              <div class="ai-message">
+                レポートを作成しています...
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         Results
+    ========================================== -->
+
+    <section class="section results" id="results">
+
+      <div class="container">
+
+        <div class="section-heading center fade-up">
+
+          <div class="eyebrow">
+            Results
+          </div>
+
+          <h2 class="section-title">
+            AIを導入すると、<br>
+            仕事はここまで変わる。
+          </h2>
+
+          <p class="section-description">
+            「便利そう」だけではなく、
+            実際の業務時間と生産性に変化を生み出します。
+          </p>
+
+        </div>
+
+
+        <div class="result-grid">
+
+          <article class="result-card fade-up">
+            <span>レポート作成時間</span>
+            <strong>75%</strong>
+            <p>削減</p>
+          </article>
+
+          <article class="result-card fade-up">
+            <span>月間業務削減時間</span>
+            <strong>120h+</strong>
+            <p>1社あたりの平均削減時間</p>
+          </article>
+
+          <article class="result-card fade-up">
+            <span>自動化された業務</span>
+            <strong>2.8k</strong>
+            <p>月間処理タスク数</p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         Process
+    ========================================== -->
+
+    <section class="section section-light">
+
+      <div class="container">
+
+        <div class="section-heading center fade-up">
+
+          <div class="eyebrow">
+            Process
+          </div>
+
+          <h2 class="section-title">
+            はじめるのは、意外と簡単です。
+          </h2>
+
+          <p class="section-description">
+            AI導入の検討段階から、運用・定着まで。
+            NEXAが伴走します。
+          </p>
+
+        </div>
+
+
+        <div class="process-grid">
+
+          <div class="process-card fade-up">
+            <div class="process-number">01</div>
+            <h3>お問い合わせ</h3>
+            <p>
+              まずは現在の業務やお困りごとをお聞かせください。
+            </p>
+          </div>
+
+          <div class="process-card fade-up">
+            <div class="process-number">02</div>
+            <h3>ヒアリング・ご提案</h3>
+            <p>
+              業務内容を確認し、
+              NEXAを活用できるポイントをご提案します。
+            </p>
+          </div>
+
+          <div class="process-card fade-up">
+            <div class="process-number">03</div>
+            <h3>導入・初期設定</h3>
+            <p>
+              必要な設定や環境構築をサポート。
+              社内での利用開始まで伴走します。
+            </p>
+          </div>
+
+          <div class="process-card fade-up">
+            <div class="process-number">04</div>
+            <h3>運用・定着支援</h3>
+            <p>
+              利用状況を確認しながら、
+              より効果的なAI活用へアップデートします。
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         Security
+    ========================================== -->
+
+    <section class="section" id="security">
+
+      <div class="container">
+
+        <div class="security-wrap">
+
+          <div class="security-visual fade-up">
+
+            <div class="shield">
+              <div class="shield-inner">
+                ✓
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="fade-up">
+
+            <div class="eyebrow">
+              Security
+            </div>
+
+            <h2 class="section-title">
+              便利さだけではなく、<br>
+              安心まで。
+            </h2>
+
+            <p class="section-description">
+              企業の業務データを扱うサービスだからこそ、
+              NEXAはセキュリティを重要な機能のひとつとして考えています。
+            </p>
+
+            <div class="security-points">
+
+              <div class="security-point">
+                <h3>アクセス権限管理</h3>
+                <p>
+                  ユーザーや部署ごとに適切なアクセス権限を設定できます。
+                </p>
+              </div>
+
+              <div class="security-point">
+                <h3>データ保護</h3>
+                <p>
+                  通信・保存時のデータを適切に保護します。
+                </p>
+              </div>
+
+              <div class="security-point">
+                <h3>監査ログ</h3>
+                <p>
+                  サービス上の操作履歴を記録し、管理者による確認を可能にします。
+                </p>
+              </div>
+
+              <div class="security-point">
+                <h3>AI学習への利用</h3>
+                <p>
+                  お客様のデータをAIモデルの学習に利用しないポリシーを採用しています。
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         Testimonials
+    ========================================== -->
+
+    <section class="section section-light" id="cases">
+
+      <div class="container">
+
+        <div class="section-heading center fade-up">
+
+          <div class="eyebrow">
+            Customer Stories
+          </div>
+
+          <h2 class="section-title">
+            現場から、変化が生まれています。
+          </h2>
+
+        </div>
+
+
+        <div class="testimonial-grid">
+
+          <article class="testimonial fade-up">
+
+            <div class="quote-mark">“</div>
+
+            <blockquote>
+              これまで毎週半日かかっていたレポート作成が、
+              30分程度で終わるようになりました。
+              単純作業から解放され、チームで考える時間が増えたことを実感しています。
+            </blockquote>
+
+            <div class="testimonial-author">
+
+              <div class="author-avatar">
+                Y
+              </div>
+
+              <div>
+                <div class="author-name">
+                  株式会社〇〇
+                </div>
+
+                <div class="author-role">
+                  業務企画部 マネージャー
+                </div>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="testimonial fade-up">
+
+            <div class="quote-mark">“</div>
+
+            <blockquote>
+              AIツールは難しいイメージがありましたが、
+              NEXAは現場メンバーがすぐに使い始められました。
+              導入後のサポートも手厚く、安心して社内展開できています。
+            </blockquote>
+
+            <div class="testimonial-author">
+
+              <div class="author-avatar">
+                K
+              </div>
+
+              <div>
+                <div class="author-name">
+                  株式会社〇〇
+                </div>
+
+                <div class="author-role">
+                  DX推進室 室長
+                </div>
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         FAQ
+    ========================================== -->
+
+    <section class="section" id="faq">
+
+      <div class="container">
+
+        <div class="section-heading center fade-up">
+
+          <div class="eyebrow">
+            FAQ
+          </div>
+
+          <h2 class="section-title">
+            よくあるご質問
+          </h2>
+
+          <p class="section-description">
+            NEXAの導入・機能・セキュリティについて、
+            よくいただくご質問をまとめました。
+          </p>
+
+        </div>
+
+
+        <div class="faq-wrap">
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              <span>AIに詳しくなくても利用できますか？</span>
+              <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい。AIに関する専門知識がなくても利用できるよう、
+                直感的な操作性を重視して設計しています。
+                導入時には利用方法についてもサポートします。
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              <span>どのような業務に利用できますか？</span>
+              <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                データ入力・集計、文書作成、議事録作成、
+                情報検索、レポート作成など、さまざまな業務に活用できます。
+                現在の業務内容をヒアリングしたうえで、
+                適した活用方法をご提案することも可能です。
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              <span>既存のツールと連携できますか？</span>
+              <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい。お客様の利用環境に応じて、
+                既存ツールとの連携をご提案しています。
+                対応状況についてはお問い合わせください。
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              <span>社内のデータをAIの学習に利用されることはありますか？</span>
+              <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                お客様のデータをAIモデルの学習に利用しないポリシーを採用しています。
+                詳細なデータの取り扱いについては、
+                セキュリティポリシーをご確認ください。
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              <span>導入までどのくらいかかりますか？</span>
+              <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                利用する機能や環境によって異なります。
+                まずは現在の業務環境をお聞かせいただき、
+                導入までの期間をご案内します。
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              <span>無料で相談できますか？</span>
+              <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい。導入前のご相談は無料です。
+                「どの業務にAIを活用できるか分からない」といった段階でも
+                お気軽にご相談ください。
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              <span>導入後のサポートはありますか？</span>
+              <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                はい。初期設定だけでなく、運用開始後の活用支援も行っています。
+                社内への定着や活用範囲の拡大まで継続的にサポートします。
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         CTA
+    ========================================== -->
+
+    <section class="cta-section">
+
+      <div class="container">
+
+        <div class="cta-box fade-up">
+
+          <div class="cta-content">
+
+            <div class="eyebrow">
+              Let's Transform Work
+            </div>
+
+            <h2 class="cta-title">
+              仕事の未来を、<br>
+              <span class="gradient-text">今日から変える。</span>
+            </h2>
+
+            <p class="cta-description">
+              AIは、特別な人だけのものではありません。
+              毎日の仕事の中にある「時間のかかる作業」をAIに任せることで、
+              人にしかできない仕事に、もっと時間を使えるようになります。
+            </p>
+
+            <div class="cta-buttons">
+
+              <a href="#contact" class="btn btn-primary">
+                無料で相談する
+                <span>→</span>
+              </a>
+
+              <a href="#contact" class="btn btn-outline">
+                サービス資料をダウンロード
+              </a>
+
+            </div>
+
+            <div class="cta-note">
+              ご相談・資料請求は無料です。
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         Contact
+    ========================================== -->
+
+    <section class="section section-light" id="contact">
+
+      <div class="container">
+
+        <div class="contact-grid">
+
+          <div class="contact-info fade-up">
+
+            <div class="eyebrow">
+              Contact
+            </div>
+
+            <h2 class="section-title">
+              お気軽に<br>
+              ご相談ください。
+            </h2>
+
+            <p>
+              「自社の業務にもAIを活用できる？」
+              「どこから効率化すればいい？」
+              そんな段階からでも、お気軽にご相談いただけます。
+            </p>
+
+            <div class="contact-points">
+
+              <div class="contact-point">
+                <span class="contact-check">✓</span>
+                導入前のご相談は無料
+              </div>
+
+              <div class="contact-point">
+                <span class="contact-check">✓</span>
+                専門スタッフが業務内容をヒアリング
+              </div>
+
+              <div class="contact-point">
+                <span class="contact-check">✓</span>
+                最適なAI活用方法をご提案
+              </div>
+
+              <div class="contact-point">
+                <span class="contact-check">✓</span>
+                通常2営業日以内にご連絡
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <form class="contact-form fade-up" id="contactForm">
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label for="company">
+                  会社名
+                </label>
+
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  placeholder="株式会社〇〇"
+                  required
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label for="name">
+                  お名前
+                </label>
+
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="山田 太郎"
+                  required
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label for="email">
+                  メールアドレス
+                </label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="example@company.co.jp"
+                  required
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label for="tel">
+                  電話番号
+                </label>
+
+                <input
+                  type="tel"
+                  id="tel"
+                  name="tel"
+                  placeholder="03-0000-0000"
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label for="department">
+                  部署・役職
+                </label>
+
+                <input
+                  type="text"
+                  id="department"
+                  name="department"
+                  placeholder="DX推進部 / マネージャー"
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label for="category">
+                  お問い合わせ種別
+                </label>
+
+                <select id="category" name="category">
+                  <option value="">選択してください</option>
+                  <option value="service">サービスについて</option>
+                  <option value="introduction">導入について</option>
+                  <option value="price">料金について</option>
+                  <option value="document">資料請求</option>
+                  <option value="demo">デモの申し込み</option>
+                  <option value="other">その他</option>
+                </select>
+              </div>
+
+
+              <div class="form-group full">
+                <label for="message">
+                  ご相談内容
+                </label>
+
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="現在のお悩みや、効率化したい業務についてご記入ください。"
+                ></textarea>
+              </div>
+
+            </div>
+
+
+            <div class="form-submit">
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                お問い合わせを送信する
+                <span>→</span>
+              </button>
+
+              <div class="form-note">
+                お問い合わせいただいた内容を確認のうえ、
+                担当者よりご連絡いたします。
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       Footer
+  ========================================== -->
+
+  <footer class="footer">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+
+          <a href="#top" class="logo">
+            <span class="logo-mark"></span>
+            NEXA
+          </a>
+
+          <p>
+            AIで時間をつくる。人が価値をつくる。
+            NEXAは企業の業務効率化とAI活用を支援します。
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <div class="footer-title">
+            SERVICE
+          </div>
+
+          <div class="footer-links">
+            <a href="#service">サービス概要</a>
+            <a href="#features">機能・特徴</a>
+            <a href="#usecases">活用シーン</a>
+            <a href="#results">導入効果</a>
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="footer-title">
+            SUPPORT
+          </div>
+
+          <div class="footer-links">
+            <a href="#cases">導入事例</a>
+            <a href="#faq">FAQ</a>
+            <a href="#security">セキュリティ</a>
+            <a href="#contact">お問い合わせ</a>
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="footer-title">
+            COMPANY
+          </div>
+
+          <div class="footer-links">
+            <a href="#top">会社概要</a>
+            <a href="#top">お知らせ</a>
+            <a href="#top">採用情報</a>
+            <a href="#top">プライバシー</a>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <div>
+          © 2026 NEXA Inc. All Rights Reserved.
+        </div>
+
+        <div class="footer-legal">
+          <a href="#top">利用規約</a>
+          <a href="#top">プライバシーポリシー</a>
+          <a href="#top">セキュリティポリシー</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================================
+       JavaScript
+  ========================================== -->
+
+  <script>
+    /* =========================================
+       Header scroll effect
+    ========================================== */
+
+    const header = document.getElementById("header");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+
+
+    /* =========================================
+       Hamburger menu
+    ========================================== */
+
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+
+    hamburger.addEventListener("click", () => {
+      const isOpen = hamburger.classList.toggle("active");
+
+      navLinks.classList.toggle("active");
+
+      hamburger.setAttribute(
+        "aria-expanded",
+        isOpen ? "true" : "false"
+      );
+    });
+
+
+    /*
+     * Mobile menu:
+     * リンククリック時にメニューを閉じる
+     */
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+
+      link.addEventListener("click", () => {
+
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+
+        hamburger.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      });
+
+    });
+
+
+    /* =========================================
+       FAQ Accordion
+    ========================================== */
+
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach((item) => {
+
+      const question = item.querySelector(".faq-question");
+
+      question.addEventListener("click", () => {
+
+        const isOpen = item.classList.contains("open");
+
+        /*
+         * 他のFAQを閉じる
+         */
+        faqItems.forEach((otherItem) => {
+          otherItem.classList.remove("open");
+        });
+
+        /*
+         * クリックされたFAQだけ開く
+         */
+        if (!isOpen) {
+          item.classList.add("open");
+        }
+
+      });
+
+    });
+
+
+    /* =========================================
+       Scroll Reveal Animation
+    ========================================== */
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add("visible");
+
+            observer.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+
+    document.querySelectorAll(".fade-up").forEach((element) => {
+      observer.observe(element);
+    });
+
+
+    /* =========================================
+       Use Case interaction
+    ========================================== */
+
+    const usecaseItems =
+      document.querySelectorAll(".usecase-item");
+
+    usecaseItems.forEach((item) => {
+
+      item.addEventListener("click", () => {
+
+        usecaseItems.forEach((otherItem) => {
+          otherItem.classList.remove("active");
+        });
+
+        item.classList.add("active");
+
+      });
+
+    });
+
+
+    /* =========================================
+       Contact form demo
+    ========================================== */
+
+    const contactForm =
+      document.getElementById("contactForm");
+
+    contactForm.addEventListener("submit", (event) => {
+
+      event.preventDefault();
+
+      const button =
+        contactForm.querySelector("button[type='submit']");
+
+      const originalText = button.innerHTML;
+
+      button.innerHTML = "送信しました ✓";
+
+      button.disabled = true;
+
+      /*
+       * 実際のサイトではここで
+       * API / Form backend / CRMなどへ送信する。
+       */
+
+      setTimeout(() => {
+
+        button.innerHTML = originalText;
+        button.disabled = false;
+
+        contactForm.reset();
+
+      }, 2500);
+
+    });
+
+
+    /* =========================================
+       Smooth scroll fallback
+       ========================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+
+      anchor.addEventListener("click", function (event) {
+
+        const targetId = this.getAttribute("href");
+
+        if (!targetId || targetId === "#") {
+          return;
+        }
+
+        const target =
+          document.querySelector(targetId);
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      });
+
+    });
+
+
+    /* =========================================
+       Initial animation
+    ========================================== */
+
+    window.addEventListener("load", () => {
+
+      document.querySelectorAll(".hero .fade-up").forEach((element, index) => {
+
+        setTimeout(() => {
+          element.classList.add("visible");
+        }, 150 + index * 120);
+
+      });
+
+    });
+  </script>
+
+</body>
+</html>
